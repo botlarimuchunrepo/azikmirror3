@@ -203,7 +203,7 @@ class MirrorListener:
             except Exception as e:
                 LOGGER.error(str(e))
             count = len(download_dict)
-        msg = f"{self.tag} your download has been stopped due to: {error}"
+        msg = f"{self.tag} sizning yuklab olishingiz to'xtatildi\nSabab: {error}"
         msg = sendMessage(msg, self.bot, self.update)
         if count == 0:
             self.clean()
@@ -241,7 +241,7 @@ class MirrorListener:
         link_id = str(LINK_LOGS)[5:][:-1]
         S_link =  f"https://t.me/c/{link_id}/{msg_id}"
             '''
-        msg = f'<b>Name: </b><code>{name.replace("<", "")}</code>\n\n<b>Size: </b>{size}'
+        msg = f'<b>Nomi: </b><code>{name.replace("<", "")}</code>\n\n<b>Hajmi: </b>{size}'
         if AUTO_DELETE_UPLOAD_MESSAGE_DURATION != -1:
             reply_to = self.message.reply_to_message
             if reply_to is not None:
@@ -269,10 +269,10 @@ class MirrorListener:
         logwarn = f"\n<b>I have sent files in Log Channel.</b>\n"
         if self.isLeech:
             count = len(files)
-            msg += f'\n<b>Total Files: </b>{count}'
+            msg += f'\n<b>Umumiy fayllar: </b>{count}ta'
             if typ != 0:
                 msg += f'\n<b>Corrupted Files: </b>{typ}'
-            msg += f'\n<b>#Leeched By: </b>{self.tag}\n'
+            msg += f'\n<b>#Yuklab_oluvchi: </b>{self.tag}\n'
             if BOT_PM:
                 message = sendMessage(msg + pmwarn + warnmsg, self.bot, self.update)
                 Thread(target=auto_delete_upload_message, args=(bot, self.message, message)).start()
