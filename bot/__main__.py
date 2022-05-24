@@ -62,29 +62,29 @@ def stats(update, context):
 
 def start(update, context):
     buttons = ButtonMaker()
-    buttons.buildbutton("Updates Channel", "https://t.me/heliosmirror")
-    buttons.buildbutton("Support Group", "https://t.me/mirrorsociety")
+    buttons.buildbutton("AziK Projects", "https://t.me/azik_projects")
+    buttons.buildbutton("AziK Cinema", "https://t.me/azik_cinema")
     uname = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
-        start_string = f'''Hey! {uname},\n
-This bot can mirror all your links to Google Drive! and also can Upload them on Telegram if you want.
-Type /{BotCommands.HelpCommand} to get a list of available commands
+        start_string = f'''Salom! {uname},\n
+Men bilan 2gbdan katta fayllarni yuklab olishingiz mumkin.
+Yordam olish uchun /{BotCommands.HelpCommand} buyrugini yuboring.
 '''
         sendMarkup(start_string, context.bot, update, reply_markup)
     else:
         if BOT_PM:
-            message = sendMessage(f'Dear {uname},\n\nIf You Want To Use Me, You Have To Join @{CHANNEL_USERNAME}\n\n<b>NOTE:</b> All The Uploaded Links and Leeched Files By You Will Be Sent Here In Your Private Chat From Now.', context.bot, update)
+            message = sendMessage(f'Salom {uname},\n\nMendan foydalanishingiz uchun @{CHANNEL_USERNAME} kanaliga obuna boling.\n\n<b>NOTE:</b> All The Uploaded Links and Leeched Files By You Will Be Sent Here In Your Private Chat From Now.', context.bot, update)
             Thread(target=auto_delete_message, args=(context.bot, update.message, message)).start()
             return
         else:
             message = sendMarkup(
-                f'Dear {uname},\n\nIf You Want To Use Me, You Have To Join @{CHANNEL_USERNAME}\n\n',
+                f'Salom {uname},\n\nMendan foydalanishingiz uchun @{CHANNEL_USERNAME} kanaliga obuna boling.\n\n',
                 context.bot, update, reply_markup)
             Thread(target=auto_delete_message, args=(context.bot, update.message, message)).start()
             return
 def restart(update, context):
-    restart_message = sendMessage("Restarting...", context.bot, update)
+    restart_message = sendMessage("Qayta yuklanmoqda...", context.bot, update)
     if Interval:
         Interval[0].cancel()
     alive.kill()
@@ -283,11 +283,11 @@ def main():
     if ospath.isfile(".restartmsg"):
         with open(".restartmsg") as f:
             chat_id, msg_id = map(int, f)
-        bot.edit_message_text("Restarted successfully!", chat_id, msg_id)
+        bot.edit_message_text("Qayta yuklash muvaffaqqiyatli bajarildi!", chat_id, msg_id)
         osremove(".restartmsg")
     elif OWNER_ID:
         try:
-            text = "<b>Bot Restarted!</b>"
+            text = "<b>Bot ishga tushdi!</b>"
             message = bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
             if AUTHORIZED_CHATS:
                 for i in AUTHORIZED_CHATS:
